@@ -1,7 +1,7 @@
-export function Part1(props) { 
+export function Part1({part}) { 
     return (
         <div>
-            {props.part1} {props.exercises1}
+            {part.name} {part.exercises}
         </div>
     )
 }
