@@ -1,6 +1,6 @@
 import { useState } from "react"
 
-export default function PersonForm({addPerson}){
+export default function PersonForm({addPerson}) {
     const [person,setPerson] = useState({
         name: '',
         number: ''

@@ -9,6 +9,16 @@
       "name": "dhruv",
       "number": "900000",
       "id": "MlrQ9D7c8OM"
+    },
+    {
+      "name": "someone",
+      "number": "278345623",
+      "id": "Hu6GXCqtwqM"
+    },
+    {
+      "name": "kajsnd",
+      "number": "2873645",
+      "id": "RoqQu9-DmTo"
     }
   ],
   "$schema": "./node_modules/json-server/schema.json"
