@@ -1,29 +1,69 @@
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import Filter from './Filter.jsx'
 import NumberList from './NumberList.jsx'
 import PersonForm from './PersonForm.jsx'
 import './App.css'
+import personService from './server/phonebook.js'
 
 const App = () => {
-  const [persons, setPersons] = useState([
-    { name: 'Arto Hellas', number: '040-123456', id: 1 },
-    { name: 'Ada Lovelace', number: '39-44-5323523', id: 2 },
-    { name: 'Dan Abramov', number: '12-43-234345', id: 3 },
-    { name: 'Mary Poppendieck', number: '39-23-6423122', id: 4 }
-  ])
+  const [persons, setPersons] = useState([])
   const [searchString,setSearchString] = useState('');
+
+  useEffect(()=>{
+    personService.getAll()
+    .then((response)=>{
+      setPersons(response)
+    })
+  },[])
 
   const addPerson = (person) => {
     const existingPerson = persons.find(per => per.name === person.name)
-    if (existingPerson) {
-      alert('user with same name already exists')
+
+    //older code to check if person already exists in the phonebook.
+    // if (existingPerson) {
+    //   alert('user with same name already exists')
+    //   return
+    // }
+
+    if(existingPerson){
+      if(!window.confirm(`${person.name} already exists in the phonebook. Replace the old number with the new one?`)){
+        return
+      }
+      personService.update(existingPerson.id, person)
+      .then((response)=>{
+        setPersons(persons.map((per)=> per.id === existingPerson.id ? response : per))
+      })
+      .catch((error)=>{
+        console.log(error)
+      })
       return
     }
-    setPersons(persons.concat(person))
+
+    personService.create(person).then((response)=>{
+      setPersons(persons.concat(response.data))
+    })
+    .catch((error)=>{
+      console.log(error)
+    })
+
   }
 
   function handleSearch(searchString){
     setSearchString(searchString);
+  }
+
+  function deletePerson(id){
+    const person = persons.find((person)=> person.id === id)
+    if(!window.confirm(`Are you sure you want to delete ${person.name}?`)){
+      return
+    }
+    personService.deletePerson(id).then(()=>{
+      setPersons(persons.filter((person)=> person.id !== id))
+    })
+    .catch((error)=>{
+      console.log(error)
+    })
+
   }
 
 
@@ -32,7 +72,7 @@ const App = () => {
       <h2>Phonebook</h2>
       <Filter handleSearch={handleSearch}/>
       <PersonForm addPerson={addPerson}/>
-      <NumberList persons={persons.filter((person)=> person.name.includes(searchString))}/>
+      <NumberList persons={persons.filter((person)=> person.name.includes(searchString))} deletePerson={deletePerson}/>
     </div>
   )
 }

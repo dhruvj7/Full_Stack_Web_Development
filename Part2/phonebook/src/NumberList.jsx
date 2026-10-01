@@ -1,8 +1,8 @@
-export default function NumberList({persons}){
+export default function NumberList({persons, deletePerson}){
 
     function displayPersonList(){
         return persons.map((item)=>{
-            return <li key={item.name}>{item.name} - {item.number}</li>
+            return <li key={item.name}>{item.name} - {item.number} <button onClick={() => {deletePerson(item.id)}}>delete</button></li>
         });
     }
 
