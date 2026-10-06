@@ -1,8 +1,11 @@
 const express = require('express')
 const morgan = require('morgan')
+const cors = require('cors')
 
 const app = express()
 app.use(express.json())
+app.use(cors())
+
 
 morgan.token('body', (request) => (
   request.method === 'POST' ? JSON.stringify(request.body) : ''
@@ -20,7 +23,7 @@ app.get('/api/persons', (request, response) => {
   response.json(persons)
 })
 
-app.get('/info', (request, response) => {
+app.get('/api/persons/info', (request, response) => {
   const requestTime = new Date().toString()
   response.send(`
     <main>
