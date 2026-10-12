@@ -5,6 +5,8 @@ const name = process.argv[3]
 const number = process.argv[4]
 const username = process.env.MONGODB_USERNAME || 'dhruv'
 
+
+
 if (!password) {
   console.log('Usage: node mongo.js <password> [name] [number]')
   process.exit(1)
@@ -15,7 +17,7 @@ if ((name && !number) || (!name && number)) {
   process.exit(1)
 }
 
-const url = `mongodb+srv://${username}:${encodeURIComponent(password)}@cluster0.gna3dg5.mongodb.net/phonebook?retryWrites=true&w=majority&appName=Cluster0`
+const uri = `mongodb+srv://${username}:${encodeURIComponent(password)}@cluster0.gna3dg5.mongodb.net/phonebook?retryWrites=true&w=majority&appName=Cluster0`
 
 const personSchema = new mongoose.Schema({
   name: String,
