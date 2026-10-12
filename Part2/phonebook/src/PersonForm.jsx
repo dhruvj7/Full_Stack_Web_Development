@@ -43,7 +43,7 @@ export default function PersonForm({addPerson}) {
                 </div> 
                 <br></br>
                 <div>
-                    phone number: <input type='number' value={person.number} onChange={addNumber}/>
+                    phone number: <input value={person.number} onChange={addNumber}/>
                 </div>
                 <br></br>
                 <div>

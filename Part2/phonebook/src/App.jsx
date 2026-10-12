@@ -29,6 +29,9 @@ const App = () => {
 }, [toaster])
 
   const addPerson = (person) => {
+    // console.log(person)
+    // console.log(person.name.length)
+    // console.log(person.number.length)
     if(person.name.length < 3){
       showToaster('Person validation failed : Name must be at least 3 characters long', 'error');
       return
