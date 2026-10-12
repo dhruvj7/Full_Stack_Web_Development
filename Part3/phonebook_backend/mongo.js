@@ -1,3 +1,5 @@
+//this file is not in use, the code is now in index.js
+
 const mongoose = require('mongoose')
 
 const password = process.argv[2]
@@ -17,7 +19,7 @@ if ((name && !number) || (!name && number)) {
   process.exit(1)
 }
 
-const uri = `mongodb+srv://${username}:${encodeURIComponent(password)}@cluster0.gna3dg5.mongodb.net/phonebook?retryWrites=true&w=majority&appName=Cluster0`
+const url = `mongodb+srv://${username}:${encodeURIComponent(password)}@cluster0.gna3dg5.mongodb.net/phonebook?retryWrites=true&w=majority&appName=Cluster0`
 
 const personSchema = new mongoose.Schema({
   name: String,
