@@ -73,6 +73,29 @@ app.post('/api/persons', async (request, response) => {
   response.status(201).json(savedPerson)
 })
 
+app.put('/api/persons/:id', async (request, response) => {
+  const { name, number } = request.body || {}
+
+  if (!name?.trim() || !number?.trim()) {
+    return response.status(400).json({ error: 'name or number is missing' })
+  }
+
+  const trimmedName = name.trim()
+  const trimmedNumber = number.trim()
+
+  const updatedPerson = await Person.findByIdAndUpdate(
+    request.params.id,
+    { name: trimmedName, number: trimmedNumber },
+    { new: true, runValidators: true, context: 'query' }
+  )
+
+  if (!updatedPerson) {
+    return response.status(404).json({ error: 'person not found' })
+  }
+
+  response.json(updatedPerson)
+})
+
 app.use((request, response) => {
   response.status(404).json({ error: 'unknown endpoint' })
 })
