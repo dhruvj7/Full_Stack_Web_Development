@@ -29,6 +29,14 @@ const App = () => {
 }, [toaster])
 
   const addPerson = (person) => {
+    if(person.name.length < 3){
+      showToaster('Person validation failed : Name must be at least 3 characters long', 'error');
+      return
+    }
+    if(person.number.length < 8){
+      showToaster('Person validation failed : Number must be at least 8 characters long', 'error');
+      return
+    }
     const existingPerson = persons.find(per => per.name === person.name)
 
     //older code to check if person already exists in the phonebook.

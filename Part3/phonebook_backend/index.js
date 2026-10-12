@@ -96,10 +96,6 @@ app.put('/api/persons/:id', async (request, response) => {
   response.json(updatedPerson)
 })
 
-app.use((request, response) => {
-  response.status(404).json({ error: 'unknown endpoint' })
-})
-
 const unknownEndpoint = (request, response) => {
   response.status(404).send({ error: 'unknown endpoint' })
 }
